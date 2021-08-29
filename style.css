@@ -33,6 +33,7 @@ button {
   border: none;
   border-radius: 0.5rem;
   font-size: 1.2rem;
+  outline: white;
 }
 h1 {
   margin-top: 2rem;
