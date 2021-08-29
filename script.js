@@ -155,7 +155,7 @@ function clickHandler() {
     };
 
     if (checkPalindromeForAllFormat(date)) {
-      output.innerText = "Yay! Your bithdate is a Palindrome!!";
+      output.innerText = "Yay! Your birthday is a Palindrome!!";
     } else {
       var [count, nextDate] = findNextPalindromeDate(date);
       output.innerText = `Oops! The next palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${count} days!`;
