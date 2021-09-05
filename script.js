@@ -181,11 +181,6 @@ function findNextPalindromeDate(date) {
     }
   }
 
-  console.log(nextDate);
-  console.log(countNext);
-  console.log(previousDate);
-  console.log(countPrevious);
-
   if (countNext < countPrevious) {
     return [countNext, nextDate];
   }
