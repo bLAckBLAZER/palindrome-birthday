@@ -192,26 +192,32 @@ const birthDate = document.querySelector("#birth-date");
 const btnCheck = document.querySelector("#btn-check");
 const output = document.querySelector("#output");
 
+function checkPalindrome(dateInput) {
+  dateInput = dateInput.split("-");
+
+  var date = {
+    day: Number(dateInput[2]),
+    month: Number(dateInput[1]),
+    year: Number(dateInput[0]),
+  };
+
+  if (checkPalindromeForAllFormat(date)) {
+    output.innerText = "Yay! Your birthday is a Palindrome!!";
+  } else {
+    var [count, nextDate] = findNextPalindromeDate(date);
+    output.innerText = `Oops! The closest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${count} days!`;
+  }
+}
+
 function clickHandler() {
   var dateInput = birthDate.value;
 
   if (dateInput === "") {
     output.innerText = "Please enter your birth-date!";
   } else {
-    dateInput = dateInput.split("-");
+    output.innerText = "Calculating.....";
 
-    var date = {
-      day: Number(dateInput[2]),
-      month: Number(dateInput[1]),
-      year: Number(dateInput[0]),
-    };
-
-    if (checkPalindromeForAllFormat(date)) {
-      output.innerText = "Yay! Your birthday is a Palindrome!!";
-    } else {
-      var [count, nextDate] = findNextPalindromeDate(date);
-      output.innerText = `Oops! The closest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${count} days!`;
-    }
+    setTimeout(checkPalindrome, 2000, dateInput);
   }
 }
 
