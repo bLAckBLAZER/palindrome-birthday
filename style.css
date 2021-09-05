@@ -2,6 +2,11 @@
 
 body {
   font-family: "Kaisei Opti", serif;
+  background-image: url("birthday-image.jpg");
+}
+
+.body-text {
+  color: white;
 }
 .container {
   margin: auto;
@@ -41,6 +46,7 @@ h1 {
 
 #output {
   font-size: 1.5rem;
+  color: white;
 }
 footer {
   position: fixed;
