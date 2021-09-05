@@ -120,12 +120,51 @@ function getNextDate(date) {
   return nextDate;
 }
 
+function getPreviousDate(date) {
+  var previousDate = {
+    day: 0,
+    month: 0,
+    year: 0,
+  };
+
+  previousDate.day = date.day - 1;
+  previousDate.month = date.month;
+  previousDate.year = date.year;
+
+  const monthEnds = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (previousDate.month === 3 && previousDate.day === 0) {
+    if (isLeapYear(previousDate.year)) {
+      previousDate.day = 29;
+      previousDate.month -= 1;
+    } else {
+      previousDate.day = 28;
+      previousDate.month -= 1;
+    }
+  } else {
+    if (previousDate.day <= 0) {
+      previousDate.day = monthEnds[previousDate.month - 2];
+      previousDate.month -= 1;
+    }
+  }
+
+  if (previousDate.month <= 0) {
+    previousDate.day = 31;
+    previousDate.month = 12;
+    previousDate.year -= 1;
+  }
+
+  return previousDate;
+}
+
 function findNextPalindromeDate(date) {
   var nextDate = getNextDate(date);
-  var count = 0;
+  var previousDate = getPreviousDate(date);
+  var countNext = 0;
+  var countPrevious = 0;
 
   while (true) {
-    count += 1;
+    countNext += 1;
     if (checkPalindromeForAllFormat(nextDate)) {
       break;
     } else {
@@ -133,7 +172,25 @@ function findNextPalindromeDate(date) {
     }
   }
 
-  return [count, nextDate];
+  while (true) {
+    countPrevious += 1;
+    if (checkPalindromeForAllFormat(previousDate)) {
+      break;
+    } else {
+      previousDate = getPreviousDate(previousDate);
+    }
+  }
+
+  console.log(nextDate);
+  console.log(countNext);
+  console.log(previousDate);
+  console.log(countPrevious);
+
+  if (countNext < countPrevious) {
+    return [countNext, nextDate];
+  }
+
+  return [countPrevious, previousDate];
 }
 
 const birthDate = document.querySelector("#birth-date");
@@ -158,7 +215,7 @@ function clickHandler() {
       output.innerText = "Yay! Your birthday is a Palindrome!!";
     } else {
       var [count, nextDate] = findNextPalindromeDate(date);
-      output.innerText = `Oops! The next palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${count} days!`;
+      output.innerText = `Oops! The closest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed it by ${count} days!`;
     }
   }
 }
